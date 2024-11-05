@@ -1,4 +1,5 @@
 package java_backend.check_scammer.Model;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class Scammer {
     private String id;
     private String nameScammer;
     private String phoneScammer;
-    private String backNumber;
+    private String bankNumber;
     private String bankName;
     private String contentReport;
     private String nameSender;

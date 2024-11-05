@@ -37,10 +37,48 @@ public class ScammerServiceImpl implements ScammerService {
 
     @Override
     public Scammer updateScammer(Scammer scammer, String id) {
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("Id không được để trống");
+        }
         Scammer existedScammer = scammerRepository.findById(id).orElseThrow(
-                RuntimeException::new
+                () -> new RuntimeException("Không tìm thấy scammer với id: " + id)
         );
-//        existedScammer.setNameScammer(scammer.getNameScammer());
+        if (scammer.getNameScammer() != null && !scammer.getNameScammer().trim().isEmpty()) {
+            existedScammer.setNameScammer(scammer.getNameScammer());
+        }
+
+        if (scammer.getPhoneScammer() != null && !scammer.getPhoneScammer().trim().isEmpty()) {
+            existedScammer.setPhoneScammer(scammer.getPhoneScammer());
+        }
+
+        if (scammer.getBankNumber() != null) {
+            existedScammer.setBankNumber(scammer.getBankNumber());
+        }
+
+        if (scammer.getBankName() != null) {
+            existedScammer.setBankName(scammer.getBankName());
+        }
+
+        if (scammer.getContentReport() != null) {
+            existedScammer.setContentReport(scammer.getContentReport());
+        }
+
+        if (scammer.getNameSender() != null) {
+            existedScammer.setNameSender(scammer.getNameSender());
+        }
+
+        if (scammer.getPhoneSender() != null) {
+            existedScammer.setPhoneSender(scammer.getPhoneSender());
+        }
+
+        if (scammer.getOption() != null) {
+            existedScammer.setOption(scammer.getOption());
+        }
+
+        if (scammer.getImages() != null) {
+            existedScammer.setImages(scammer.getImages());
+        }
+
         scammerRepository.save(existedScammer);
         return existedScammer;
     }
