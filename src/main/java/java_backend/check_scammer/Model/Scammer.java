@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id; // duy nhat, khoa chinh
 import org.springframework.data.mongodb.core.mapping.Document; //lop nay la 1 document trong mongodb
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Data //chú thích giúp tự động tạo getter, setter, toString, hashCode, equals cho các lớp => giảm thiểu code
 @AllArgsConstructor //tự động tạo ra constructor với tham số các field trong lớp
@@ -22,4 +26,9 @@ public class Scammer {
     private String phoneSender;
     private String option;
     private String[] images;
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+    private String status;
 }

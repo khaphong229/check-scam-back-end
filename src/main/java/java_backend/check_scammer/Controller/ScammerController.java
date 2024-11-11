@@ -1,13 +1,12 @@
 package java_backend.check_scammer.Controller;
 
+import java_backend.check_scammer.Model.ResponseObject;
 import java_backend.check_scammer.Model.Scammer;
 import java_backend.check_scammer.Service.ScammerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/scammers")
@@ -17,28 +16,40 @@ public class ScammerController {
     private ScammerService scammerService;
 
     @PostMapping
-    public ResponseEntity<Scammer> saveScammer(@RequestBody Scammer scammer) {
-        return new ResponseEntity<Scammer>(scammerService.saveScammer(scammer), HttpStatus.CREATED);
+    public ResponseEntity<ResponseObject> saveScammer(@RequestBody Scammer scammer) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(scammerService.saveScammer(scammer));
     }
 
     @GetMapping
-    public List<Scammer> getAllScammer() {
-        return scammerService.getAllScammer();
+    public ResponseEntity<ResponseObject> getAllScammer() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(scammerService.getAllScammer());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Scammer> getScammerById(@PathVariable("id") String scammerId) {
-        return new ResponseEntity<Scammer>(scammerService.getScammerById(scammerId), HttpStatus.OK);
+    public ResponseEntity<ResponseObject> getScammerById(@PathVariable("id") String scammerId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(scammerService.getScammerById(scammerId));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Scammer> updateScammer(@PathVariable("id") String scammerId, @RequestBody Scammer scammer) {
-        return new ResponseEntity<Scammer>(scammerService.updateScammer(scammer, scammerId), HttpStatus.OK);
+    public ResponseEntity<ResponseObject> updateScammer(@PathVariable("id") String scammerId,
+                                                        @RequestBody Scammer scammer) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(scammerService.updateScammer(scammer, scammerId));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteScammer(@PathVariable("id") String scammerId) {
-        scammerService.deleteScammer(scammerId);
-        return new ResponseEntity<String>("Deleted scammer successfully", HttpStatus.OK);
+    public ResponseEntity<ResponseObject> deleteScammer(@PathVariable("id") String scammerId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(scammerService.deleteScammer(scammerId));
     }
+
+    
 }
