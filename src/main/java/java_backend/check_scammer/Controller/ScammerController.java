@@ -51,5 +51,8 @@ public class ScammerController {
                 .body(scammerService.deleteScammer(scammerId));
     }
 
-    
+    @GetMapping("search/{text}")
+    public ResponseEntity<ResponseObject> searchScammer(@PathVariable("text") String searchText) {
+        return ResponseEntity.status(HttpStatus.OK).body(scammerService.searchScammers(searchText));
+    }
 }
