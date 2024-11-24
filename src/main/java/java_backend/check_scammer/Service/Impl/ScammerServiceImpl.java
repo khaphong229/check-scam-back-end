@@ -156,4 +156,29 @@ public class ScammerServiceImpl implements ScammerService {
             return ResponseObject.error("Lỗi khi tìm kiếm scammer: " + e.getMessage());
         }
     }
+
+    @Override
+    public ResponseObject updateStatus(String id) {
+        try {
+            Optional<Scammer> scammerOptional = scammerRepository.findById(id);
+            if (scammerOptional.isEmpty()) {
+                return ResponseObject.error("Không tìm thấy scammer có id này");
+            }
+
+            Scammer scammer = scammerOptional.get();
+            String currentStatus = scammer.getStatus();
+
+            if ("pending".equals(currentStatus)) {
+                scammer.setStatus("approved");
+            } else {
+                scammer.setStatus("pending");
+            }
+            
+            scammerRepository.save(scammer);
+            return ResponseObject.success(scammer);
+
+        } catch (Exception e) {
+            return ResponseObject.error("Lỗi: " + e.getMessage());
+        }
+    }
 }

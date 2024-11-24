@@ -17,4 +17,6 @@ public interface ScammerService {
     ResponseObject deleteScammer(String id);
 
     ResponseObject searchScammers(String searchText);
+
+    ResponseObject updateStatus(String id);
 }

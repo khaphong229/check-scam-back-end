@@ -55,4 +55,10 @@ public class ScammerController {
     public ResponseEntity<ResponseObject> searchScammer(@PathVariable("text") String searchText) {
         return ResponseEntity.status(HttpStatus.OK).body(scammerService.searchScammers(searchText));
     }
+
+    @PatchMapping("status/{id}")
+    public ResponseEntity<ResponseObject> updateStatus(@PathVariable("id") String scammerId) {
+        return ResponseEntity.status(HttpStatus.OK).body(scammerService.updateStatus(scammerId));
+    }
+
 }
